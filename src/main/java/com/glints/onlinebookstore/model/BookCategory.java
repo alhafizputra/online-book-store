@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "book_category")
-public class BookCategory {
+public class BookCategory extends Persistence {
 	
 	public BookCategory() {
 		super();
