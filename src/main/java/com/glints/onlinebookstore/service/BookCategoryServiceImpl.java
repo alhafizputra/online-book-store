@@ -39,7 +39,7 @@ public class BookCategoryServiceImpl implements BookCategoryService {
 	@Override
 	public BookCategory update(Integer id, BookCategoryPayload bookCategoryPayload) throws BadRequestException {
 		BookCategory bookCategory;
-		bookCategory = bookCategoryRepo.findById(id).orElseThrow(() -> new BadRequestException("Errorrr"));
+		bookCategory = bookCategoryRepo.findById(id).orElseThrow(() -> new BadRequestException("Book Category with id " + id + " not found!"));
 		bookCategory.setName(bookCategoryPayload.getName());
 		bookCategory.setCode(bookCategoryPayload.getCode());
 		bookCategory = bookCategoryRepo.save(bookCategory);
