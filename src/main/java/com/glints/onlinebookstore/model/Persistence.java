@@ -3,6 +3,8 @@ package com.glints.onlinebookstore.model;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -15,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
-@Data
+@MappedSuperclass
 public class Persistence {
 
 	@Column(length = 50)
