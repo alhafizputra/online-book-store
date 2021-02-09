@@ -31,7 +31,9 @@ public class BookController {
 
 	@PostMapping("/create")
 	public ResponseEntity<Book> create(@RequestBody BookPayload bookPayload) {
+		System.out.println(bookPayload.getBookCategoryId());
 		BookCategory bookCategory = bookCategoryRepo.findById(bookPayload.getBookCategoryId()).orElse(null);
+		System.out.println(bookCategory);
 		Book book = new Book(bookPayload.getTitle(), bookPayload.getIsbn(), bookPayload.getAuthorName(), bookPayload.getSynopsis(), bookPayload.getPublicationDate(), bookPayload.getPrice(), bookPayload.getBookStatus(), bookCategory);
 		book = bookRepo.save(book);
 		return new ResponseEntity<Book>(book, HttpStatus.OK);

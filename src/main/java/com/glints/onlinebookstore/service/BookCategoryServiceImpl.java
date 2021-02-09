@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.glints.onlinebookstore.exception.BadRequestException;
 import com.glints.onlinebookstore.model.BookCategory;
 import com.glints.onlinebookstore.payload.BookCategoryPayload;
 import com.glints.onlinebookstore.repository.BookCategoryRepo;
@@ -36,8 +37,9 @@ public class BookCategoryServiceImpl implements BookCategoryService {
 	}
 
 	@Override
-	public BookCategory update(Integer id, BookCategoryPayload bookCategoryPayload) {
-		BookCategory bookCategory = bookCategoryRepo.findById(id).orElse(null);
+	public BookCategory update(Integer id, BookCategoryPayload bookCategoryPayload) throws BadRequestException {
+		BookCategory bookCategory;
+		bookCategory = bookCategoryRepo.findById(id).orElseThrow(() -> new BadRequestException("Errorrr"));
 		bookCategory.setName(bookCategoryPayload.getName());
 		bookCategory.setCode(bookCategoryPayload.getCode());
 		bookCategory = bookCategoryRepo.save(bookCategory);

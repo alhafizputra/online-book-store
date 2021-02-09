@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.glints.onlinebookstore.exception.BadRequestException;
 import com.glints.onlinebookstore.model.BookCategory;
 import com.glints.onlinebookstore.payload.BookCategoryPayload;
 import com.glints.onlinebookstore.service.BookCategoryService;
@@ -39,8 +40,15 @@ public class BookCategoryController {
 	}
 	
 	@PostMapping("/update/{id}")
-	public ResponseEntity<BookCategory> update(@PathVariable("id") Integer id, @RequestBody BookCategoryPayload bookCategoryPayload) {
-		BookCategory bookCategory = bookCategoryService.update(id, bookCategoryPayload);
+	public ResponseEntity<BookCategory> update(@PathVariable("id") Integer id, @RequestBody BookCategoryPayload bookCategoryPayload) throws BadRequestException {
+		BookCategory bookCategory;
+		try {
+			bookCategory = bookCategoryService.update(id, bookCategoryPayload);
+		} catch (BadRequestException e) {
+			System.out.println(e.getMessage());
+			throw new BadRequestException(e.getMessage());
+//			e.printStackTrace();
+		}
 		return new ResponseEntity<BookCategory>(bookCategory, HttpStatus.OK);
 	}
 	
